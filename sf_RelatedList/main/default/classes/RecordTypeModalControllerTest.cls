@@ -1,5 +1,5 @@
 /*****************************************************************************
-@Author     : Erika Hidalgo
+@Author     : hanning.gong@icloud.com
 @CreateDate : 22/11/2018
 @Description: Test class for RecordTypeModalController
 @History: 

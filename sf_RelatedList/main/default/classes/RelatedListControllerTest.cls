@@ -1,5 +1,5 @@
 /*****************************************************************************
-@Author     : Charles
+@Author     : hanning.gong@icloud.com
 @CreateDate : 01/03/2019
 @Description: Test class for RelatedListController
 @History: 
@@ -111,10 +111,10 @@ private class RelatedListControllerTest {
 	 @isTest
 	 static void getRecordsTest(){
 	 	Account acct = [SELECT id FROM Account WHERE Name = 'TestAcct0' LIMIT 1];
-	 	String fields = 'ContactId,isdirect,isactive';
+	 	String fields = 'Name,AccountId';
         
         Test.startTest();
-        List<sObject> recordList = RelatedListController.getRecords(acct.id, fields, 'AccountContactRelation', null, null,'AccountId',null,null);
+        List<sObject> recordList = RelatedListController.getRecords(acct.id, fields, 'Contact', null, null,'AccountId',null,null);
         Test.stopTest();
 
         System.assertEquals(2, recordList.size());
@@ -124,13 +124,13 @@ private class RelatedListControllerTest {
 	 @isTest
 	 static void getColumnsTest(){
 	 	Account acct = [SELECT id FROM Account WHERE Name = 'TestAcct0' LIMIT 1];
-	 	String fields = 'Name,ContactId,isdirect,isactive';
+	 	String fields = 'Name,AccountId';
         
         Test.startTest();
-        List<RelatedListController.ColumnWrapper> columnSize = RelatedListController.getColumns(acct.id, fields, 'AccountContactRelation');
+        List<RelatedListController.ColumnWrapper> columnSize = RelatedListController.getColumns(acct.id, fields, 'Contact');
         Test.stopTest();
 
-        System.assertEquals(4, columnSize.size());
+        System.assertEquals(2, columnSize.size());
 
 	 }
 
@@ -150,10 +150,10 @@ private class RelatedListControllerTest {
 	 @isTest
 	 static void getRecordsTestNegative(){
 	 	Account acct = [SELECT id FROM Account WHERE Name = 'TestAcct0' LIMIT 1];
-	 	String fields = 'ContactId,isdirect,isactive';
+	 	String fields = 'Name,AccountId';
         
         Test.startTest();
-        List<sObject> recordList = RelatedListController.getRecords(acct.id, fields, 'AccountContactRelation', '', '','AccountId','','');
+        List<sObject> recordList = RelatedListController.getRecords(acct.id, fields, 'Contact', '', '','AccountId','','');
         Test.stopTest();
 
         System.assertEquals(0, recordList.size());

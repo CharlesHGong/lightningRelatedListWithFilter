@@ -1,5 +1,5 @@
 /*****************************************************************************
-@Author     : Charles Gong
+@Author     : hanning.gong@icloud.com
 @CreateDate : 05/11/2018
 @Description: Controller for RecordTypeComponent
 @History: 

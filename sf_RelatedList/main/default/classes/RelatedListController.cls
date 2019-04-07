@@ -1,5 +1,5 @@
 /*****************************************************************************
-@Author     : Charles
+@Author     : hanning.gong@icloud.com
 @CreateDate : 01/03/2019
 @Description: Controller for RelatedListComponent
 @History: 
@@ -66,7 +66,7 @@ public without sharing class RelatedListController {
         Integer count;
         Id recordId = Id.valueOf(recId);
         try{
-            count = Database.countQuery(countQueryGenerator(relatedObjectName, relationship,recordId,conditions));
+            count = Database.countQuery(countQueryGenerator(relatedObjectName,recordId,conditions));
         }catch(Exception e){
             System.debug('Exception: '+ e);
         }
@@ -95,7 +95,7 @@ public without sharing class RelatedListController {
         }
         
         try{
-            relatedRecords = Database.query(queryGenerator(finalFields.substring(1), relatedObjectName, relationship,recordLimit,offset, recordId,conditions,sortOrder));
+            relatedRecords = Database.query(queryGenerator(finalFields.substring(1), relatedObjectName,recordLimit,offset, recordId,conditions,sortOrder));
             System.debug('RelatedRecords: ' + relatedRecords);
             
         }catch(Exception e){
@@ -133,8 +133,8 @@ public without sharing class RelatedListController {
         return columns;
     }
     
-    //relationship is deprecated    
-    private static String queryGenerator(String fields, String relatedObjectName, String relationship,
+
+    private static String queryGenerator(String fields, String relatedObjectName,
                                             String recordLimit,String offset, String recordId,String conditions,String sortOrder){
         recordLimit = recordLimit == null  ? ' ' : ' LIMIT ' + string.valueOf(recordLimit);
         offset = offset == null ? ' ' : ' OFFSET '+ string.valueOf(offset);
@@ -145,8 +145,7 @@ public without sharing class RelatedListController {
         return query;
     }
     
-    //relationship is deprecated
-    private static String countQueryGenerator(String relatedObjectName, String relationship,String recordId,String conditions){
+    private static String countQueryGenerator(String relatedObjectName, String recordId,String conditions){
         conditions = conditions == null || conditions == '' ? ' ' : ' WHERE ' + conditions ;
         String query = 'SELECT count() FROM ' + relatedObjectName + conditions ;
         System.debug(query);
@@ -207,13 +206,6 @@ public without sharing class RelatedListController {
             this.sortable = sortable;
             this.CellAttributes = new CellAttributes();
         }
-        public ColumnWrapper(String name, String dataType, String fieldLabel, CellAttributes labelName, Boolean sortable){
-            this.fieldName = name;
-            this.type = dataType;
-            this.label = fieldLabel;
-            this.CellAttributes = labelName;
-            this.sortable = sortable;
-        }
         
     }
     
@@ -234,17 +226,7 @@ public without sharing class RelatedListController {
     
     public class cellAttributes{
         @AuraEnabled
-        public Label iconName {get;set;}  
-        @AuraEnabled
-        public String iconPosition {get;set;}
-        @AuraEnabled
-        public String alignment {get;set;}
-        
-        public cellAttributes(Label iconName,String iconPosition){
-            this.iconName = iconName;
-            this.iconPosition = iconPosition;
-            this.alignment = 'left';
-        }      
+        public String alignment {get;set;}   
         
         public CellAttributes(){
             this.alignment = 'left';
