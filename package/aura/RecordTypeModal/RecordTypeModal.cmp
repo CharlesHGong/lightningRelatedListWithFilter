@@ -1,0 +1,53 @@
+<aura:component access="global" controller="RecordTypeModalController">
+    <aura:attribute name="objectAPIName" type="String"/>
+    <aura:attribute name="objectName" type="String" />
+    <aura:attribute name="options" type="List" default="null"/>
+    <aura:attribute name="value" type="String"/>
+    
+    <aura:attribute name="relationship" type="String"/>
+    <aura:attribute name="recordId" type="String" />
+    
+    <aura:attribute name="show" type="Boolean" default='false'/>    
+    
+    <aura:method name="createRecord" action="{!c.init}" access="PUBLIC"/>    
+
+    <aura:attribute name="headerTitle" type="Aura.Component[]">
+        <h2>
+            <b>New {!v.objectName}</b>
+        </h2>
+    </aura:attribute>
+    
+    <aura:if isTrue="{!and (v.show, v.options.length>1)}">
+        <div class="demo-only" >
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header slds-modal__header_empty">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick='{!c.closeModal}'>
+                            <lightning:icon iconName="utility:close" alternativeText="Close" variant="inverse" size="small"/>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate inlineTitle slds-p-top--large slds-p-horizontal--medium slds-p-bottom--medium slds-text-heading--medium">New {!v.objectName}</h2>
+                        <div class='modal__content'>
+                            <lightning:radioGroup name="radioGroup"
+                                                  label="{! 'Select a record type for this ' + v.objectName}"
+                                                  options="{! v.options }"
+                                                  value="{! v.value }"
+                                                  type="radio"
+                                                  body="{!v.headerTitle}"/>
+                        </div>
+                        
+                        <div style='text-align:center'>
+                            <lightning:button class='rtbtn' label="Cancel" title="Cancel" onclick="{! c.closeModal }"/>
+                            <lightning:button class='rtbtn' variant="brand" label="Next" title="Next" onclick="{! c.cRecord }" />
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+</aura:component>

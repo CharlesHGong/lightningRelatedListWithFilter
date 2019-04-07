@@ -1,0 +1,87 @@
+<aura:component implements='lightning:isUrlAddressable,flexipage:availableForRecordHome' access='global' controller='RelatedListController'>
+    <!--crumbread parameters-->
+    <aura:attribute name="parentObjLabel" type="String"/>
+    <aura:attribute name="parentObjAPI" type="String"/>
+    <aura:attribute name="parentRecName" type="String"/>
+    
+    <aura:attribute name="updatedAgo" type="Integer" default = '0'/>
+    
+    <aura:attribute name="object" type="String"/>
+    <aura:attribute name="objectLabel" type="String"/>
+    <aura:attribute name="fields" type="String"/>
+    <aura:attribute name="sortOrder" type="String"/>
+    <aura:attribute name="relationship" type="String"/>
+    <aura:attribute name="conditions" type="String"/>
+    <aura:attribute name="iconName" type="String"/>
+    <aura:attribute name="rowsToLoad" type="Integer" default="50"/>
+
+    <!-- action lists -->
+    <aura:attribute name='actionList' type='String' default='' />
+    <aura:attribute name='actionNew' type='Boolean' default='true'/>
+    
+    <aura:attribute name="maxCount" type="Integer" default="50"/>
+    <aura:attribute name="loadMoreOffset" type="Integer" default="20"/>
+    <aura:attribute name="enableInfiniteLoading" type="Boolean" default='true'/>
+    <aura:attribute name="sortedBy" type="String" />
+    <aura:attribute name="sortedDirection" type="Boolean" default="true" />
+    
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="Object" />
+    <aura:attribute name="recordId" type="String" />
+    
+    <aura:attribute name="showRTModal" type="Boolean" default='false'/>
+    <lightning:navigation aura:id="navService"/>
+    
+    <aura:handler name="init" value="{! this}" action="{! c.init }"/>
+
+	<lightning:workspaceAPI aura:id="workspace" />    
+
+    <div class='slds-page-header--object-home slds-page-header_joined slds-page-header_bleed slds-page-header slds-shrink-none test-headerRegion forceListViewManagerHeader'>
+        <div class='slds-grid'>
+            <div class='slds-col slds-has-flexi-truncate'>
+                <lightning:breadcrumbs>
+                    <lightning:breadcrumb label="{!v.parentObjLabel}" onclick="{!c.navObjHome}"/>
+                    <lightning:breadcrumb label="{!v.parentRecName}" onclick="{!c.navRecord}"/>
+                </lightning:breadcrumbs>
+                <h1 class='slds-page-header__title slds-truncate'>{!v.objectLabel}</h1>
+            </div>
+            
+            <div class='slds-col slds-no-flex slds-grid slds-align-top slds-p-bottom--xx-small test-lvmForceActionsContainer'>
+                <aura:if isTrue = '{!v.actionNew}'>
+                    <lightning:button label="New" title="New" onclick="{! c.newRecord }"/>
+                </aura:if>
+            </div>
+        </div>
+        
+        <div class='slds-grid'>
+            <div class='slds-col slds-align-bottom'>
+                <p>{!v.data.length}{!v.InfiniteLoading == true ? '+ ' : ' '}item{!v.data.length>1?'s':''} • Sorted by {!v.sortOrder} • Updated {!v.updatedAgo>0 ? (v.updatedAgo >1 ? v.updatedAgo+' minutes ago' : 'a minute ago') : 'a few seconds ago' }</p>
+            </div>
+            <div class='slds-col slds-no-flex slds-grid slds-align-bottom'>
+                <lightning:buttonIcon iconName="utility:refresh" variant="border-filled" alternativeText="Refresh" onclick='{!c.refresh}' />
+            </div>
+        </div>
+    </div>
+    <div style="height: 100%">
+        <lightning:datatable
+                             data="{! v.data}"
+                             columns="{! v.columns}"
+                             keyField="id"
+                             showRowNumberColumn="true"
+                             loadMoreOffset="{! v.loadMoreOffset }"
+                             enableInfiniteLoading="{! v.enableInfiniteLoading }"
+                             onloadmore="{! c.loadMoreData }"
+                             hideCheckboxColumn = "true"
+                             
+                             sortedBy="{! v.sortedBy }"
+                             sortedDirection="{! v.sortedDirection }"
+                             defaultSortDirection="desc"
+                             onsort="{! c.updateColumnSorting }"
+                             onrowaction="{! c.handleRowAction }"
+                             />
+        
+    </div>
+    {! v.loadMoreStatus }
+    
+    <c:RecordTypeModal objectAPIName='{!v.object}' objectName='{!v.objectLabel}' show='{!v.showRTModal}' relationship='{!v.relationship}' recordId = '{!v.recordId}'/>
+</aura:component>

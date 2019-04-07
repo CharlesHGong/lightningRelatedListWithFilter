@@ -1,0 +1,88 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="RelatedListController">
+    <!-- display formatt: List or Tile -->
+    <aura:attribute name="displayFormat" type="String" default="List"/>
+    <aura:attribute name="tileActions" type="List"/>
+    
+    <!--Application Event on Tab refresh-->
+    <lightning:workspaceAPI aura:id="workspace" />  
+    <aura:handler event="lightning:tabRefreshed" action="{! c.onTabRefreshed }"/> 
+    
+    <aura:attribute name="object" type="String"/>
+    <aura:attribute name="title" type="String"/>
+    <aura:attribute name="objectLabel" type="String"/>
+    <aura:attribute name="fields" type="String"/>
+    <aura:attribute name="sortOrder" type="String"/>
+    <aura:attribute name="relationship" type="String"/>
+    <aura:attribute name="conditions" type="String"/>
+    <aura:attribute name="iconName" type="String"/>
+    <aura:attribute name='recordLimit' type='Integer' default='6'/>
+    
+    <!-- action lists -->
+    <aura:attribute name='actionList' type='String' default=' ' />
+    <aura:attribute name='actionNew' type='Boolean' default='true' />
+    
+    <aura:attribute name="maxCount" type="Integer"/>
+    <aura:attribute name="data" type="Object" default='Spinner'/>
+    <aura:attribute name="columns" type="Object" />
+    
+    <!-- <aura:attribute name="columnAttribute" type="Object" /> -->
+    <aura:attribute name="recordId" type="String" />
+    
+    <lightning:navigation aura:id="navService"/>
+    
+    <aura:handler name="init" value="{! this}" action="{! c.init }"/>
+    
+    
+    
+    
+    <!-- header for related list card -->
+    <aura:attribute name="headerTitle" type="Aura.Component[]">
+        <h2>
+            <b><a href="#" onclick="{!c.viewAll}" style='color:black'>{!v.title} ({!v.maxCount > v.recordLimit ? v.recordLimit+'+' : v.maxCount+''})</a></b>
+        </h2>
+    </aura:attribute>
+    
+    <!-- footer for related list card -->    
+    <aura:attribute name="footer" type="Aura.Component[]">
+        <aura:if isTrue="{!v.maxCount > 0}">
+            <a href="#" onclick="{!c.viewAll}">View All</a>
+        </aura:if>
+    </aura:attribute>
+    
+    <!-- Start of Related List Card-->
+    <lightning:card iconName="{!v.iconName}" class="slds-card_boundary forceRelatedListCardDesktop myUniqueTable" title="{!v.headerTitle}" footer="{!v.footer}">
+		<!-- Related List Action Buttons-->
+        <aura:set attribute="actions">
+            <aura:if isTrue="{!v.actionNew}">
+                <lightning:button label="New" onclick="{!c.newRecord}"/>
+            </aura:if>
+        </aura:set>
+        <!-- Related List Body-->
+        <aura:if isTrue="{!v.data != 'Spinner'}">
+            <aura:if isTrue="{!v.maxCount > 0}">
+                <aura:if isTrue="{!v.displayFormat == 'List'}">
+                    <!-- Display Table -->
+                    <lightning:datatable
+                                         keyField="id"
+                                         data="{! v.data}"
+                                         columns="{! v.columns}"
+                                         hideCheckboxColumn="true"
+                                         onrowaction="{! c.handleRowAction }"/>
+                    <!-- Display Tile -->
+                    <aura:set attribute="else">
+                        
+                        <c:RelatedListTileComponent data="{!v.data}" iconName='{!v.iconName}' tileActions="{!v.tileActions}"/>
+                         
+                    </aura:set>
+                </aura:if>
+            </aura:if>
+            <!-- Display Loading -->
+            <aura:set attribute="else">
+                <lightning:spinner alternativeText="Loading" size="medium" variant='brand' />
+            </aura:set>
+        </aura:if>
+    </lightning:card>
+    
+    <!-- Record Type pop-up when creating new related record -->
+    <c:RecordTypeModal aura:id="rTModal" objectAPIName='{!v.object}' objectName='{!v.objectLabel}' relationship='{!v.relationship}' recordId = '{!v.recordId}'/>
+</aura:component>

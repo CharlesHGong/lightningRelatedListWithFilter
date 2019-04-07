@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+  <types>
+    <name>AuraDefinitionBundle</name>
+    <members>RecordTypeModal</members>
+    <members>RelatedListComponent</members>
+    <members>RelatedListTileComponent</members>
+    <members>RelatedListWindow</members>
+  </types>
+  <types>
+    <name>ApexClass</name>
+    <members>RecordTypeModalController</members>
+    <members>RecordTypeModalControllerTest</members>
+    <members>RelatedListController</members>
+    <members>RelatedListControllerTest</members>
+  </types>
+  <types>
+    <name>Profile</name>
+    <members>Admin</members>
+  </types>
+  <version>45.0</version>
+</Package>

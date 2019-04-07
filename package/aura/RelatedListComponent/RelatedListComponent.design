@@ -1,0 +1,12 @@
+<design:component>
+    <design:attribute name="object" label="Object" description="Name of related object to display" />
+    <design:attribute name="title" label="Title" description="Title to display" />
+    <design:attribute name="fields" label="Fields" description="Name of the field(s). Use a comma to seperate multiple fields" />
+	<design:attribute name="sortOrder" label="Sort Order" description="Sort Order put desc at last if sort the other way around" />
+	<design:attribute name="conditions" label="Conditions" description="Filter conditions" />
+	<design:attribute name="relationship" label="Relationship" description="Relationship is deprecated, use the lookupField =: recordId in the condition instead" />
+    <design:attribute name='recordLimit' label="Limit" description = "Maximum rows of showing" default="6"/>
+    <design:attribute name='actionList' label="actionList" description = "Available Options: new;view;edit. Please use comma to seperate options" default="new;view;edit"/>
+    <design:attribute name='iconName' label="iconName" description = "If not empty overide the default icon"/>
+    <design:attribute name="displayFormat" datasource="List,Tile" />
+</design:component>
