@@ -1,0 +1,19 @@
+.THIS .tileTitle h3 a{
+    border-bottom: 1px dotted;
+    font-size:0.875rem;
+}
+.THIS .tileContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    width:100%;
+}
+.THIS .tileContainer::after {
+    content: "";
+    flex-basis: 350px;
+    flex-grow: 1;
+}
+.THIS .tileItem {
+    flex-grow: 1;
+    flex-basis: 350px;
+}

@@ -1,0 +1,50 @@
+<aura:component >
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="tileActions" type="List"/>
+    <aura:attribute name="iconName" type="String"/>
+    <div>
+        <div class="tileContainer"> 
+            <aura:iteration items="{!v.data}" var="record">
+                <div class="tileItem slds-var-p-horizontal_medium slds-var-p-vertical_xx-small" > 
+                    <div style="float: right;">
+                        <lightning:buttonMenu aura:id="menu" onselect="{! c.handleTileButtonMenuSelect }" iconSize="small" alternativeText="Show menu">
+                            <aura:iteration items="{!v.tileActions}" var="btn">
+                                <lightning:menuItem value="{!btn.name+':'+record.id}" label="{!btn.label}" />
+                            </aura:iteration>
+                        </lightning:buttonMenu>
+                    </div>
+                    <div style="margin-right: 1.5rem;">
+                        <lightning:tile class="tileTitle" label="{!record.fields[0].data}" 
+                                        href="{! record.fields[0].url != null ? record.fields[0].url : '' }">
+                            <aura:set attribute="media">
+                                <lightning:icon iconName="{!v.iconName}" size="small" />
+                            </aura:set>
+                            <aura:iteration items="{!record.fields}" var="cell" indexVar='index'>
+                                <aura:if isTrue="{!index != 0}">
+                                    <div class="slds-list--horizontal forceListRecordItem">
+                                        <div class="slds-item--label slds-truncate recordCell">
+                                            {!cell.label}:
+                                        </div>
+                                        <div class="slds-item--detail slds-truncate recordCell">
+                                            <aura:if isTrue="{!cell.url}">
+                                                <a href="{!cell.url}">{!cell.data}</a>
+                                                <aura:set attribute="else">
+                                                    <aura:if isTrue="{!cell.icon}">
+                                                        <lightning:icon iconName="{!cell.icon}" size="x-small"/>
+                                                        <aura:set attribute="else">
+                                                            <span>{!cell.data}</span>
+                                                        </aura:set>
+                                                    </aura:if>
+                                                </aura:set>
+                                            </aura:if>
+                                        </div>
+                                    </div>
+                                </aura:if>
+                            </aura:iteration>
+                        </lightning:tile>
+                    </div>
+                </div>
+            </aura:iteration>
+        </div>
+    </div>
+</aura:component>
