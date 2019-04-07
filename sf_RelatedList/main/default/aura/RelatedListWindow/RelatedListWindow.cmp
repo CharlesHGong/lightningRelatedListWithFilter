@@ -67,6 +67,12 @@
                              data="{! v.data}"
                              columns="{! v.columns}"
                              keyField="id"
+                             />
+        <!--
+        <lightning:datatable
+                             data="{! v.data}"
+                             columns="{! v.columns}"
+                             keyField="id"
                              showRowNumberColumn="true"
                              loadMoreOffset="{! v.loadMoreOffset }"
                              enableInfiniteLoading="{! v.enableInfiniteLoading }"
@@ -79,6 +85,7 @@
                              onsort="{! c.updateColumnSorting }"
                              onrowaction="{! c.handleRowAction }"
                              />
+-->
         
     </div>
     {! v.loadMoreStatus }

@@ -35,6 +35,7 @@
         var promiseData = helper.loadMore(cmp,helper,0);
         promiseData.then(function(results) {
             cmp.set('v.data', results);
+            console.log('data returned');
         });
         
         helper.setTabLabelIcon(cmp,object);  
@@ -60,7 +61,7 @@
                     console.log('DATA Original: ' + JSON.stringify(data));
                     
                     data.forEach(function(record){
-                        for (var field of columns){
+                        for (var field of cmp.get("v.columns")){
                             if (field.typeAttributes && field.typeAttributes.relationship){
                                 if (record[field.typeAttributes.relationship]){
                                     record[field.typeAttributes.relationship+"_Id"] = "/" +record[field.typeAttributes.relationship]['Id'];
