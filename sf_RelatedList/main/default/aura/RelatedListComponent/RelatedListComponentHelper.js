@@ -142,7 +142,7 @@
                     } else if (field.type == 'textarea'){
                         tileCell['data'] = record[field.fieldName].split('\n')[0];
                     } else if (field.type =='percent'){
-                        record['data'] = record[field.fieldName] / 100;
+                        tileCell['data'] = record[field.fieldName] + '%';
                     } else {
                         tileCell['data'] = record[field.fieldName];
                     }
