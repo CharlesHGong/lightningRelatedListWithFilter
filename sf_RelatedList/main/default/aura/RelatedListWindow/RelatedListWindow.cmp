@@ -67,12 +67,6 @@
                              data="{! v.data}"
                              columns="{! v.columns}"
                              keyField="id"
-                             />
-        <!--
-        <lightning:datatable
-                             data="{! v.data}"
-                             columns="{! v.columns}"
-                             keyField="id"
                              showRowNumberColumn="true"
                              loadMoreOffset="{! v.loadMoreOffset }"
                              enableInfiniteLoading="{! v.enableInfiniteLoading }"
@@ -85,10 +79,11 @@
                              onsort="{! c.updateColumnSorting }"
                              onrowaction="{! c.handleRowAction }"
                              />
--->
         
     </div>
     {! v.loadMoreStatus }
     
-    <c:RecordTypeModal objectAPIName='{!v.object}' objectName='{!v.objectLabel}' show='{!v.showRTModal}' relationship='{!v.relationship}' recordId = '{!v.recordId}'/>
+    <!-- Record Type pop-up when creating new related record -->
+    <c:RecordTypeModal aura:id="rTModal" objectAPIName='{!v.object}' objectName='{!v.objectLabel}' relationship='{!v.relationship}' recordId = '{!v.recordId}'/>
+
 </aura:component>
