@@ -83,5 +83,7 @@
     </div>
     {! v.loadMoreStatus }
     
-    <c:RecordTypeModal objectAPIName='{!v.object}' objectName='{!v.objectLabel}' show='{!v.showRTModal}' relationship='{!v.relationship}' recordId = '{!v.recordId}'/>
+    <!-- Record Type pop-up when creating new related record -->
+    <c:RecordTypeModal aura:id="rTModal" objectAPIName='{!v.object}' objectName='{!v.objectLabel}' relationship='{!v.relationship}' recordId = '{!v.recordId}'/>
+
 </aura:component>

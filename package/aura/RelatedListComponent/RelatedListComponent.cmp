@@ -5,7 +5,8 @@
     
     <!--Application Event on Tab refresh-->
     <lightning:workspaceAPI aura:id="workspace" />  
-    <aura:handler event="lightning:tabRefreshed" action="{! c.onTabRefreshed }"/> 
+    <aura:handler event="lightning:tabRefreshed" action="{! c.onTabRefreshed }"/>
+    <aura:handler event="force:showToast" action="{! c.refreshTab}" />
     
     <aura:attribute name="object" type="String"/>
     <aura:attribute name="title" type="String"/>

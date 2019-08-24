@@ -43,20 +43,32 @@
                 "componentName": "c__RelatedListWindow"    
             },    
             "state": {
-                "object": cmp.get("v.object"),
-                "objectLabel":cmp.get("v.objectLabel"),
-                "iconName":cmp.get("v.iconName"),
-                "fields":cmp.get('v.fields'),
-                "relationship" : cmp.get("v.relationship"),
-                "sortOrder" : cmp.get("v.sortOrder"),
-                "conditions" : cmp.get("v.conditions"),
-                "recordId" : cmp.get("v.recordId"),
-                "columns" : cmp.get("v.columns"),
-                "maxCount" : cmp.get("v.maxCount"),
-                'actionList': cmp.get("v.actionList") 
+                "c__object": cmp.get("v.object"),
+                "c__objectLabel":cmp.get("v.objectLabel"),
+                "c__iconName":cmp.get("v.iconName"),
+                "c__fields":cmp.get('v.fields'),
+                "c__relationship" : cmp.get("v.relationship"),
+                "c__sortOrder" : cmp.get("v.sortOrder"),
+                "c__conditions" : cmp.get("v.conditions"),
+                "c__recordId" : cmp.get("v.recordId"),
+                "c__columns" : cmp.get("v.columns"),
+                "c__maxCount" : cmp.get("v.maxCount"),
+                'c__actionList': cmp.get("v.actionList") 
             }
         };
         navService.navigate(pageReference);
+    },
+    refreshTab:function(component,event,helper){
+      var workspaceAPI = component.find("workspace");
+        workspaceAPI.getEnclosingTabId().then(function(tabId) {
+            workspaceAPI.refreshTab({
+                      tabId: tabId,
+                      includeAllSubtabs: true
+             });
+        })
+        .catch(function(error) {
+            console.log(error);
+        });  
     },
     onTabRefreshed : function(component, event, helper) {
         var refreshedTabId = event.getParam("tabId"); 

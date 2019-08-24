@@ -14,9 +14,5 @@
     <members>RelatedListController</members>
     <members>RelatedListControllerTest</members>
   </types>
-  <types>
-    <name>Profile</name>
-    <members>Admin</members>
-  </types>
   <version>45.0</version>
 </Package>

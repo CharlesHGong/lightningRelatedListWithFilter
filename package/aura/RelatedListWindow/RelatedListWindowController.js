@@ -47,7 +47,9 @@
         });
     },
     newRecord:function(cmp,event,helper){
-        cmp.set('v.showRTModal',true);
+        console.log("Clicked related");
+        var recordTypeModal = cmp.find("rTModal");
+        recordTypeModal.createRecord();
     },
     navObjHome:function(cmp,event,helper){
         var navService = cmp.find("navService");
