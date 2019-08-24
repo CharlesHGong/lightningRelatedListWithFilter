@@ -27,7 +27,7 @@
         cmp.set('v.actionNew',cmp.get('v.actionList') ? cmp.get('v.actionList').includes('new') : false);
         
         cmp.set("v.updatedAgo",0);
-        helper.setTabLabelIcon(cmp,object); 
+        helper.setTabLabelIcon(cmp,objectLabel,iconName); 
         
         helper.getParentNames(cmp,recordId);
         
@@ -108,26 +108,20 @@
         
         return helper.fetchData(cmp, recordId, fields, object, sortOrder, conditions, relationship,rowsToLoad,offset);
     },
-    setTabLabelIcon:function(cmp){
+    setTabLabelIcon:function(cmp,title,iconName){
         //set title and heading
         var workspaceAPI = cmp.find("workspace");
         workspaceAPI.getFocusedTabInfo().then(function(response) {
-            console.log(response);
-            for (var i of response.subtabs){
-                if (i.pageReference.state.object == cmp.get("v.pageReference").state.object){
-                    var focusedTabId = i.tabId;
-                    workspaceAPI.setTabLabel({
-                        tabId: focusedTabId,
-                        label: i.pageReference.state.objectLabel
-                    });
-                    workspaceAPI.setTabIcon({
-                        tabId: focusedTabId,
-                        icon: cmp.get("v.iconName"),
-                        iconAlt: i.pageReference.state.objectLabel
-                    });
-                    
-                }
-            }
+            var focusedTabId = response.tabId;
+            workspaceAPI.setTabLabel({
+                tabId: focusedTabId,
+                label: title
+            });
+            workspaceAPI.setTabIcon({
+                tabId: focusedTabId,
+                icon: iconName,
+                iconAlt: iconName
+            });
         }).catch(function(error) {
             console.log(error);
         });
