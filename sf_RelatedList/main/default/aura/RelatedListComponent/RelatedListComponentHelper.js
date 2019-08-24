@@ -103,10 +103,16 @@
                 } else if (field.type == 'datetime'){
                     var d = new Date(record[field.fieldName]);
                     record[field.fieldName] = d.toLocaleString();
-                } else if (field.type =='percent'){
-                    record[field.fieldName] = record[field.fieldName] /100;
+                } else if (field.type == 'text'){
+                    var converted = record[field.fieldName];
+                    console.log('TEST:' + converted)
+                    if(converted != null){
+                        converted.toString();
+                        record[field.fieldName] = converted + '%';
+                    }
+                    
                 }else if (field.type == 'textarea'){
-                    record[field.fieldName] = record[field.fieldName].split('\n')[0];
+                    record[field.fieldName] = record[field.fieldName];
                 }
             }
             record.linkName = '/'+ record.Id;
@@ -135,10 +141,10 @@
                         tileCell['icon'] = record[field.fieldName] ? 'utility:check':'' ;
                     } else if (field.type == 'datetime'){
                         var d = new Date(record[field.fieldName]);
-                        tileCell['data'] = d.toLocaleString();
-                    }else if (field.type == 'date'){
+                        tileCell['data'] = record[field.fieldName] ? d.toLocaleDateString() : '';
+                    } else if (field.type == 'date'){
                         var d = new Date(record[field.fieldName]);
-                        tileCell['data'] = d.toLocaleDateString();
+                        tileCell['data'] = record[field.fieldName] ? d.toLocaleDateString() : '';
                     } else if (field.type == 'textarea'){
                         tileCell['data'] = record[field.fieldName].split('\n')[0];
                     } else if (field.type =='percent'){
@@ -208,6 +214,9 @@
         editRecordEvent.setParams({
             "recordId": recordId
         });
+        //editRecordEvent.setCallback(this, $A.getCallback(function (response) {
+        //    console.log(JSON.stringify(response));
+        //}));
         editRecordEvent.fire();
     },
     viewRecord:function(recordId){

@@ -159,6 +159,8 @@ public without sharing class RelatedListController {
         if(String.valueOf(fieldResult.getType()) == 'REFERENCE'){
             System.debug('REFERENCE: ' + fieldResult.getName());
             return new ColumnWrapper(fieldResult.getRelationshipName()+'_Id', 'url', fieldResult.getLabel(), new TypeAttributes('_self', new Label(fieldResult.getRelationshipName()+'_Name'),fieldResult.getRelationshipName()),false);  
+        } else if(String.valueOf(fieldResult.getType()) == 'PERCENT'){
+            return new ColumnWrapper(fieldResult.getName(), 'text' , fieldResult.getLabel(), true);
         } else {
             return new ColumnWrapper(fieldResult.getName(), String.valueOf(fieldResult.getType()).tolowercase() , fieldResult.getLabel(), true);
         }

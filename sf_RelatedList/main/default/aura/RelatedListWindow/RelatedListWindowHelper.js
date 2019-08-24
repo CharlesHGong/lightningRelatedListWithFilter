@@ -1,16 +1,16 @@
 ({
     setInit : function(cmp,event,helper){
-        var object = cmp.get("v.pageReference").state.object;
-        var objectLabel = cmp.get("v.pageReference").state.objectLabel ;
-        var iconName = cmp.get("v.pageReference").state.iconName;
-        var fields = cmp.get("v.pageReference").state.fields ;
-        var relationship = cmp.get("v.pageReference").state.relationship;
-        var sortOrder = cmp.get("v.pageReference").state.sortOrder;
-        var conditions = cmp.get("v.pageReference").state.conditions;
-        var recordId = cmp.get("v.pageReference").state.recordId;
-        var fields = cmp.get("v.pageReference").state.fields;
-        var maxCount = cmp.get("v.pageReference").state.maxCount;
-        var actionList = cmp.get("v.pageReference").state.actionList;
+        var object = cmp.get("v.pageReference").state.c__object;
+        var objectLabel = cmp.get("v.pageReference").state.c__objectLabel ;
+        var iconName = cmp.get("v.pageReference").state.c__iconName;
+        var fields = cmp.get("v.pageReference").state.c__fields ;
+        var relationship = cmp.get("v.pageReference").state.c__relationship;
+        var sortOrder = cmp.get("v.pageReference").state.c__sortOrder;
+        var conditions = cmp.get("v.pageReference").state.c__conditions;
+        var recordId = cmp.get("v.pageReference").state.c__recordId;
+        var fields = cmp.get("v.pageReference").state.c__fields;
+        var maxCount = cmp.get("v.pageReference").state.c__maxCount;
+        var actionList = cmp.get("v.pageReference").state.c__actionList;
         
         cmp.set("v.object",object);
         cmp.set("v.objectLabel",objectLabel);
@@ -27,6 +27,7 @@
         cmp.set('v.actionNew',cmp.get('v.actionList') ? cmp.get('v.actionList').includes('new') : false);
         
         cmp.set("v.updatedAgo",0);
+        helper.setTabLabelIcon(cmp,object); 
         
         helper.getParentNames(cmp,recordId);
         
@@ -38,7 +39,7 @@
             console.log('data returned');
         });
         
-        helper.setTabLabelIcon(cmp,object);  
+ 
     },
     fetchData : function(cmp, recordId, fields, relatedObjectName, sortOrder, conditions, relationship,limit, offset) {
         var action = cmp.get("c.getRecords");
@@ -76,7 +77,7 @@
                             } else if (field.type =='percent'){
                                 record[field.fieldName] = record[field.fieldName] /100;
                             }else if (field.type == 'textarea'){
-                                record[field.fieldName] = record[field.fieldName].split('\n')[0];
+                                record[field.fieldName] = record[field.fieldName];
                             }
                         }
                         record.linkName = '/'+ record.Id;
