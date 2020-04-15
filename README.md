@@ -1,3 +1,5 @@
+Huge Kudos to [@RekHidalgo](https://github.com/RekHidalgo) for being an initial colaborator and maintained this component for many release :tada:
+
 # Lightning Related List With Filter
 
 This repository is a lightning component which mimimic the look and feel with the out of box related list but give you more control on:
@@ -128,4 +130,4 @@ Choose from Tile or List.
 
 If you find any issues with this demo that you can't fix, feel free to report them in the [issues](https://github.com/libra34567/lightningRelatedListWithFilter/issues) section of this repository.
 
-If you have any suggestions for improvement or question of how to use this component, feel free to reach out to me at hanning.gong@icloud.com
+If you have any suggestions for improvement or question of how to use this component, feel free to reach out to the collaborators at rekhidalgo@gmail.com | hanning.gong@icloud.com
