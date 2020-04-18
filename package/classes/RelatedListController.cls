@@ -161,6 +161,8 @@ public without sharing class RelatedListController {
             return new ColumnWrapper(fieldResult.getRelationshipName()+'_Id', 'url', fieldResult.getLabel(), new TypeAttributes('_self', new Label(fieldResult.getRelationshipName()+'_Name'),fieldResult.getRelationshipName()),false);  
         } else if(String.valueOf(fieldResult.getType()) == 'PERCENT'){
             return new ColumnWrapper(fieldResult.getName(), 'text' , fieldResult.getLabel(), true);
+        } else if(String.valueOf(fieldResult.getType()) == 'DOUBLE'){
+            return new ColumnWrapper(fieldResult.getName(), 'number' , fieldResult.getLabel(), new TypeAttributes(fieldResult.getScale()), true);
         } else {
             return new ColumnWrapper(fieldResult.getName(), String.valueOf(fieldResult.getType()).tolowercase() , fieldResult.getLabel(), true);
         }
@@ -200,11 +202,11 @@ public without sharing class RelatedListController {
             this.CellAttributes = new CellAttributes();
         }
         
-        public ColumnWrapper(String name, String dataType, String fieldLabel, TypeAttributes labelName, Boolean sortable){
+        public ColumnWrapper(String name, String dataType, String fieldLabel, TypeAttributes typeAttributes, Boolean sortable){
             this.fieldName = name;
             this.type = dataType;
             this.label = fieldLabel;
-            this.TypeAttributes = labelName;
+            this.typeAttributes = typeAttributes;
             this.sortable = sortable;
             this.CellAttributes = new CellAttributes();
         }
@@ -218,11 +220,17 @@ public without sharing class RelatedListController {
         public String target {get;set;}
         @AuraEnabled
         public String relationship{get;set;}
+        @AuraEnabled
+        public Integer maximumFractionDigits{get;set;}
         
         public TypeAttributes(String target, Label label,String relationship){
             this.target = target;
             this.Label = label;
             this.relationship = relationship;
+        }
+
+        public TypeAttributes(Integer maximumFractionDigits){
+            this.maximumFractionDigits = maximumFractionDigits;
         }      
     }
     

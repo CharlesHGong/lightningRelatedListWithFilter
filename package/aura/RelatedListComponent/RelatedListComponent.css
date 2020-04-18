@@ -1,3 +1,10 @@
-.THIS{
-    
+.THIS .slds-card__header {
+  background-color: var(--lwc-pageHeaderColorBackground,rgb(243, 242, 242));
+  padding: var(--lwc-varSpacingVerticalMedium,1rem) var(--lwc-varSpacingHorizontalMedium,1rem)!important;
+  margin-bottom: 0!important;
+  border-bottom: var(--lwc-borderWidthThin,1px) solid var(--lwc-cardColorBorder,rgb(221, 219, 218));
+}
+
+.THIS .slds-card__body {
+  margin: 0!important;
 }
