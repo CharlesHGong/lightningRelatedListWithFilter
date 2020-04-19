@@ -1,4 +1,4 @@
-<aura:component access="global" controller="RecordTypeModalController">
+<aura:component access="public" controller="RecordTypeModalController">
     <aura:attribute name="objectAPIName" type="String"/>
     <aura:attribute name="objectName" type="String" />
     <aura:attribute name="options" type="List" default="null"/>
