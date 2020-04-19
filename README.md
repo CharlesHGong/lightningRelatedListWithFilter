@@ -1,3 +1,5 @@
+CI Status: [![CircleCI](https://circleci.com/gh/CharlesHGong/lightningRelatedListWithFilter.svg?style=svg)](https://circleci.com/gh/CharlesHGong/lightningRelatedListWithFilter)
+
 ## Please 'Star' this repo if you like it!
 
 Huge Kudos to [@RekHidalgo](https://github.com/RekHidalgo) for being an initial colaborator and maintained this component for many release :tada:
