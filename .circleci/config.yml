@@ -1,0 +1,20 @@
+version: 2.1
+orbs:
+  sfdx: circleci/salesforce-sfdx@1.0.0
+jobs:
+  integration_test:
+    executor: sfdx/default
+    steps:
+      - checkout
+      - sfdx/install
+      - sfdx/auth: 
+          defaultusername: $DEFAULT_USERNAME
+      - run: sfdx force:org:create -v $DEFAULT_USERNAME -s -f config/project-scratch-def.json -a ciorg --wait 3
+      - run: sfdx force:org:display -u ciorg
+      - run: sfdx force:source:push -u ciorg
+      - run: sfdx force:apex:test:run -u ciorg --wait 10
+      - run: sfdx force:org:delete -u ciorg -p
+workflows:
+  basic-test:
+    jobs:
+      - integration_test
