@@ -7,7 +7,8 @@ jobs:
     steps:
       - checkout
       - sfdx/install
-      - sfdx/auth: defaultusername: hanning.charles.gong20@icloud.com
+      - sfdx/auth: 
+        defaultusername: hanning.charles.gong20@icloud.com
       - run: sfdx force:org:create -v HubOrg -s -f config/project-scratch-def.json -a ciorg --wait 3
       - run: sfdx force:org:display -u ciorg
       - run: sfdx force:source:push -u ciorg
