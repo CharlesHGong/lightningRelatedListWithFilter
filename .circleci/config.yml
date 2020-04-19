@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  sfdx: circleci/salesforce-sfdx@x.y
+  sfdx: circleci/salesforce-sfdx@1.0.0
 jobs:
   integration_test:
     executor: sfdx/default
