@@ -1,4 +1,10 @@
+## Please 'Star' this repo if you like it!
+
 Huge Kudos to [@RekHidalgo](https://github.com/RekHidalgo) for being an initial colaborator and maintained this component for many release :tada:
+
+If you like this component, you could buy us a coffee:
+
+<a href="https://www.buymeacoffee.com/CharlesGong" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a> or ![Alt text](ReadMeImg/paypalQR.png?raw=true "Donation")
 
 # Lightning Related List With Filter
 
