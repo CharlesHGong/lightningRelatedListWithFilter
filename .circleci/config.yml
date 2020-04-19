@@ -12,7 +12,7 @@ jobs:
       - run: sfdx force:org:create -v $DEFAULT_USERNAME -s -f config/project-scratch-def.json -a ciorg --wait 3
       - run: sfdx force:org:display -u ciorg
       - run: sfdx force:source:push -u ciorg
-      - run: sfdx force:apex:test:run -u ciorg -c --wait 10
+      - run: sfdx force:apex:test:run -u ciorg -c -r human --wait 10
       - run: sfdx force:org:delete -u ciorg -p
 workflows:
   basic-test:
