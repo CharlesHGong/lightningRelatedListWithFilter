@@ -58,36 +58,32 @@
         $A.enqueueAction(action);
     },
     fetchData : function(cmp,evt,hlp, recordId, fields, relatedObjectName, sortOrder, conditions, relationship,recordLimit) {
-        var action = cmp.get("c.getRecords");
-        action.setParams({
-            "recId": recordId,
-            "fields": fields,
-            "relatedObjectName": relatedObjectName, 
-            "conditions": conditions,
-            "sortOrder": sortOrder, 
-            "relationship": relationship,
-            "recordLimit" : recordLimit.toString()
-        });
-        console.log("sortOrder: "+ sortOrder);
-        action.setCallback(this, $A.getCallback(function (response) {
-            var state = response.getState();
-            if (state === "SUCCESS") {
-                var data = response.getReturnValue();
-                console.log("raw data:"+JSON.stringify(data));
-
-                if (cmp.get("v.displayFormat") == "List"){
-                    cmp.set('v.data', hlp.toListData(data,cmp.get("v.columns")));    
-                } else {
-                    cmp.set('v.data', hlp.toTileData(data,cmp.get("v.columns")));  
+        return new Promise(function(resolve, reject){
+            var action = cmp.get("c.getRecords");
+            action.setParams({
+                "recId": recordId,
+                "fields": fields,
+                "relatedObjectName": relatedObjectName, 
+                "conditions": conditions,
+                "sortOrder": sortOrder, 
+                "relationship": relationship,
+                "recordLimit" : recordLimit.toString()
+            });
+            console.log("sortOrder: "+ sortOrder);
+            action.setCallback(this, $A.getCallback(function (response) {
+                var state = response.getState();
+                if (state === "SUCCESS") {
+                    var data = response.getReturnValue();
+                    console.log("raw data:"+JSON.stringify(data));
+                    resolve(data);
+                } else if (state === "ERROR") {
+                    var errors = response.getError();
+                    console.error(errors);
+                    reject(errors);
                 }
-                console.log('DATA: ' + JSON.stringify(cmp.get('v.data')));
-                
-            } else if (state === "ERROR") {
-                var errors = response.getError();
-                console.error(errors);
-            }
-        }));
-        $A.enqueueAction(action);
+            }));
+            $A.enqueueAction(action);
+        })
     },
     toListData:function(data,columns){
         data.forEach(function(record){
@@ -161,27 +157,31 @@
         return tileData;
     },
     fetchColumns : function(cmp,evt,hlp, recordId, fields, relatedObjectName) {
-        var tableActions = hlp.getTableActions(cmp);
-        var tileAction 	= hlp.setTileActions(cmp);
-        var action = cmp.get("c.getColumns");
-        action.setParams({
-            "recId": recordId,
-            "fields": fields,
-            "relatedObjectName": relatedObjectName
-        });
-        action.setCallback(this, $A.getCallback(function (response) {
-            var state = response.getState();
-            if (state === "SUCCESS") {
-                var columns = response.getReturnValue();
-                tableActions.length != 0 ? columns.push({ type: 'action', typeAttributes: { rowActions: tableActions } }) : '';
-                cmp.set('v.columns', columns);
-                console.log('COLUMNS: ' + JSON.stringify(columns));
-            } else if (state === "ERROR") {
-                var errors = response.getError();
-                console.error(errors);
-            }
-        }));
-        $A.enqueueAction(action);
+        return new Promise(function(resolve, reject){
+            var tableActions = hlp.getTableActions(cmp);
+            var tileAction 	= hlp.setTileActions(cmp);
+            var action = cmp.get("c.getColumns");
+            action.setParams({
+                "recId": recordId,
+                "fields": fields,
+                "relatedObjectName": relatedObjectName
+            });
+            action.setCallback(this, $A.getCallback(function (response) {
+                var state = response.getState();
+                if (state === "SUCCESS") {
+                    var columns = response.getReturnValue();
+                    tableActions.length != 0 ? columns.push({ type: 'action', typeAttributes: { rowActions: tableActions } }) : '';
+                    cmp.set('v.columns', columns);
+                    console.log('COLUMNS: ' + JSON.stringify(columns));
+                    resolve(columns);
+                } else if (state === "ERROR") {
+                    var errors = response.getError();
+                    console.error(errors);
+                    reject(errors);
+                }
+            }));
+            $A.enqueueAction(action);
+        })
     },
     getTableActions:function(cmp){
         var actionListMap = {

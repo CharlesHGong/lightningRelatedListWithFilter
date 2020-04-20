@@ -15,8 +15,17 @@
         helper.getMaxCount(cmp,recordId,object,conditions,relationship);
 
         
-        helper.fetchColumns(cmp,event,helper, recordId, fields, object);
-        helper.fetchData(cmp,event,helper, recordId, fields, object, sortOrder, conditions, relationship,recordLimit);
+        var fetchColumnsPromise = helper.fetchColumns(cmp,event,helper, recordId, fields, object);
+        var fetchDataPromise = helper.fetchData(cmp,event,helper, recordId, fields, object, sortOrder, conditions, relationship,recordLimit);
+
+        Promise.all([fetchColumnsPromise, fetchDataPromise]).then(([columns, data]) => {
+            if (cmp.get("v.displayFormat") == "List"){
+                cmp.set('v.data', helper.toListData(data, columns));    
+            } else {
+                cmp.set('v.data', helper.toTileData(data, columns));  
+            }
+            console.log('DATA: ' + JSON.stringify(cmp.get('v.data')));
+        });
     },
     newRecord:function(cmp,event,helper){
         console.log("Clicked related");
